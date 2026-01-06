@@ -1,3 +1,38 @@
 {
-  "Hello": "Turmoq"
+  "main_title": "Смертные герои",
+  "sub_title": "Карусель ценных кадров",
+  "en": "Английский",
+  "ru": "Русский",
+  "overview_videos": "Обзорные видеоролики",
+  "video_subtitle": "Смотрите трейлеры и обзоры.",
+  "chapters": "Главы",
+  "chapter": "Глава",
+  "pages": "Страницы",
+  "back_to_home": "Вернуться на главную",
+  "end_of_chapter": "Конец главы",
+  "thanks_for_reading": "Спасибо за прочтение!",
+  "back_to_chapters": "Вернуться к главам",
+  "next_chapter": "Следующая глава",
+  "prev_chapter": "Предыдущая глава",
+  "by": "от",
+  "author_note": "Примечание автора",
+  "about_manga": "О чем манга",
+  "world_summary": "Кратко о мир",
+  "tags": {
+    "super_power": "#Супер сила",
+    "war": "#Война",
+    "survival": "#Выживание",
+    "friendship": "#Дружба",
+    "revenge": "#Месть",
+    "world_saving": "#Спасение мира",
+    "superheroes": "#Супергерои"
+  },
+  "genres": {
+    "action": "Боевик",
+    "drama": "Драма",
+    "adventure": "Приключения",
+    "tragedy": "Трагедия",
+    "fantasy": "Фэнтези",
+    "shounen": "Сёнэн"
+  }
 }

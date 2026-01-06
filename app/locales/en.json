@@ -1,3 +1,38 @@
 {
-  "Hello": "Hello"
+  "main_title": "Mortal heroes",
+  "sub_title": "Carousel of Valuable Frames",
+  "en": "English",
+  "ru": "Russian",
+  "overview_videos": "Overview Videos",
+  "video_subtitle": "Watch trailers and reviews",
+  "chapters": "Chapters",
+  "chapter": "Chapter",
+  "pages": "Pages",
+  "back_to_home": "Back to Home",
+  "end_of_chapter": "End of Chapter",
+  "thanks_for_reading": "Thanks for reading!",
+  "back_to_chapters": "Back to Chapters",
+  "next_chapter": "Next Chapter",
+  "prev_chapter": "Prev Chapter",
+  "by": "by",
+  "author_note": "Author's Note",
+  "about_manga": "About the manga",
+  "world_summary": "Brief summary of the world",
+  "tags": {
+    "super_power": "#Super Power",
+    "war": "#War",
+    "survival": "#Survival",
+    "friendship": "#Friendship",
+    "revenge": "#Revenge",
+    "world_saving": "#World Saving",
+    "superheroes": "#Superheroes"
+  },
+  "genres": {
+    "action": "Action",
+    "drama": "Drama",
+    "adventure": "Adventure",
+    "tragedy": "Tragedy",
+    "fantasy": "Fantasy",
+    "shounen": "Shounen"
+  }
 }
