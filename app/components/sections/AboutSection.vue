@@ -18,7 +18,7 @@ const mangaData = computed(() => (
 </script>
 
 <template>
-  <section class="py-10 md:py-20 bg-white relative overflow-hidden border-t border-gray-200">
+  <section class="py-20 bg-white relative overflow-hidden border-t border-gray-200">
     <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <!-- Cover -->
