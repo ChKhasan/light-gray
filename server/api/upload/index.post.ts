@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const optimizedBuffer = await sharp(file.data)
-        .resize({ width: 2048, withoutEnlargement: true })
+        .resize({ width: 1600, withoutEnlargement: true })
         .webp({ quality: 80 })
         .toBuffer()
 
