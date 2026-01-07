@@ -1,40 +1,52 @@
-import { mkdir } from 'fs/promises'
-import path from 'path'
 import sharp from 'sharp'
+import { supabase } from '../../utils/supabase'
+import dayjs from 'dayjs';
 
+function slugifyFilename(name: string) {
+    return name
+        .toLowerCase()
+        .replace(/\.[^/.]+$/, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+}
 export default defineEventHandler(async (event) => {
     const formData = await readMultipartFormData(event)
     const file = formData?.find(f => f.name === 'file')
-
     if (!file) {
-        throw createError({
-            statusCode: 400,
-            message: 'File topilmadi'
-        })
+        throw createError({ statusCode: 400, message: 'File topilmadi' })
     }
 
     if (!file.type?.startsWith('image/')) {
-        throw createError({
-            statusCode: 400,
-            message: 'Faqat rasm yuklash mumkin'
-        })
+        throw createError({ statusCode: 400, message: 'Faqat rasm yuklash mumkin' })
     }
 
-    const uploadsDir = path.join(process.cwd(), 'public/uploads')
-    await mkdir(uploadsDir, { recursive: true })
-
-    const filenameBase = `${Date.now()}-${Math.random().toString(36).slice(2)}`
-
-    const optimizedFilename = `${filenameBase}.webp`
-    const filePath = path.join(uploadsDir, optimizedFilename)
-
-    await sharp(file.data)
+    const optimizedBuffer = await sharp(file.data)
         .resize({ width: 2048, withoutEnlargement: true })
         .webp({ quality: 80 })
-        .toFile(filePath)
+        .toBuffer()
+
+    const originalName = file.filename || 'image'
+    const safeName = slugifyFilename(originalName)
+    const timestamp = dayjs().format('DD-MM-YYYY_HH-mm-ss')
+    const filename = `${safeName}-${timestamp}.webp`
+
+    const { error } = await supabase.storage
+        .from('uploads')
+        .upload(filename, optimizedBuffer, {
+            contentType: 'image/webp',
+            upsert: false
+        })
+
+    if (error) {
+        throw createError({ statusCode: 500, message: error.message })
+    }
+
+    const { data } = supabase.storage
+        .from('uploads')
+        .getPublicUrl(filename)
 
     return {
-        url: `/uploads/${optimizedFilename}`,
-        filename: optimizedFilename
+        url: data.publicUrl,
+        filename
     }
 })

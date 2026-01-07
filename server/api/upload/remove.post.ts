@@ -1,5 +1,4 @@
-import { unlink } from 'fs/promises'
-import path from 'path'
+import { supabase } from '../../utils/supabase'
 
 export default defineEventHandler(async (event) => {
     const { filename } = await readBody(event)
@@ -11,7 +10,6 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    // XAVFSIZLIK: path traversal oldini olish
     if (filename.includes('..') || filename.includes('/')) {
         throw createError({
             statusCode: 400,
@@ -19,18 +17,14 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const filePath = path.join(
-        process.cwd(),
-        'public/uploads',
-        filename
-    )
+    const { error } = await supabase.storage
+        .from('uploads')
+        .remove([filename])
 
-    try {
-        await unlink(filePath)
-    } catch {
+    if (error) {
         throw createError({
-            statusCode: 404,
-            message: 'File topilmadi'
+            statusCode: 500,
+            message: error.message
         })
     }
 
