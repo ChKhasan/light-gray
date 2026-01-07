@@ -7,7 +7,7 @@ const getChapters = (): Promise<IBaseResponse<IChapterDto[]>> => {
     return  axios.get('/api/chapter')
 };
 
-const getChapterById = async (id: string | undefined | string[]): Promise<IBaseResponse<IChapterWithNextPrevDto>> => {
+const getChapterById = async (id?: string): Promise<IBaseResponse<IChapterWithNextPrevDto>> => {
     return axios.get(`/api/chapter/${id}`)
 }
 

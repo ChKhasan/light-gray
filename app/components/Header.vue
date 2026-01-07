@@ -13,7 +13,7 @@ const changeLanguage = async (lang: ILang) => {
 </script>
 
 <template>
-  <header class="bg-white border-b border-gray-200 py-6 sticky top-0 z-50">
+  <header class="bg-white border-b border-gray-200 py-5 sm:py-6 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 md:px-12 flex w-full justify-between items-center">
       <h1 class="text-3xl font-black">
         Light<span class="text-red-600">Gray</span>

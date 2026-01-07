@@ -22,6 +22,19 @@ const mangaData = computed(() => (
     <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <!-- Cover -->
+        <div class="sm:hidden -mt-10 sm:mt-0 ">
+          <h2 class="text-3xl md:text-4xl font-black uppercase mb-2">
+            {{ mangaData.title }}
+          </h2>
+
+          <p class="text-xl text-gray-500">
+            {{ $t('by') }}
+            <span class="text-black font-semibold border-b-2 border-red-600">
+                {{ mangaData.author }}
+              </span>
+          </p>
+        </div>
+
         <div
             class="lg:col-span-5"
             data-aos="fade-up"
@@ -44,7 +57,7 @@ const mangaData = computed(() => (
             data-aos="fade-up"
         >
           <div class="flex flex-wrap gap-2 mb-6">
-             <span class="px-3 py-1 bg-red-600 text-white text-xs font-bold uppercase" >
+             <span class="px-3 py-1 bg-red-600 text-white text-xs font-bold uppercase">
                16+
               </span>
             <span
@@ -62,17 +75,18 @@ const mangaData = computed(() => (
                 {{ $t('tags.' + tag) }}
               </span>
           </div>
+          <div class="hidden sm:block">
+            <h2 class="text-3xl md:text-4xl font-black uppercase mb-2">
+              {{ mangaData.title }}
+            </h2>
 
-          <h2 class="text-3xl md:text-4xl font-black uppercase mb-2">
-            {{ mangaData.title }}
-          </h2>
-
-          <p class="text-xl text-gray-500 mb-8">
-            {{ $t('by') }}
-            <span class="text-black font-semibold border-b-2 border-red-600">
+            <p class="text-xl text-gray-500 mb-8">
+              {{ $t('by') }}
+              <span class="text-black font-semibold border-b-2 border-red-600">
                 {{ mangaData.author }}
               </span>
-          </p>
+            </p>
+          </div>
 
 
           <div class="p-6 bg-gray-50 border-l-4 border-black">

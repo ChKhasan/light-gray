@@ -10,7 +10,7 @@
         </NuxtLink>
         <div class="flex items-center gap-4">
           <h1 class="font-bold text-white hidden sm:block">
-            {{ $t('chapter') }} {{ chapter?.number }}: {{ chapter?.title }}
+            {{ $t('chapter') }} {{ chapter?.number }}: {{ chapter?.title[locale] }}
           </h1>
           <div class="bg-red-600 px-3 py-1 rounded text-sm font-bold text-white">
             {{ totalPages }} {{ $t('pages') }}
@@ -96,6 +96,7 @@ import {useRoute} from '#imports'
 import {House, ArrowUp} from '@element-plus/icons-vue'
 import {getChapterById} from "~/services/chapter/chapter.service";
 
+const { locale } = useI18n()
 const route = useRoute()
 const id: string | undefined | string[] = route.params.id
 const nextId = ref<string | null | undefined>(null);

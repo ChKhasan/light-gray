@@ -3,16 +3,13 @@ import type {FormInstance} from "element-plus";
 import type {IBaseResponse} from "~/types/api.type";
 import {useRouter} from "#imports";
 import {Plus} from "@element-plus/icons-vue"
-import {useQueryClient} from "@tanstack/vue-query";
 import type {FormRules} from 'element-plus'
 import type {ISiteInfoDto} from "~/services/site-info/site-info.dto";
 import {getSiteInfo, postSiteInfo} from "~/services/site-info/site-info.service";
 import type {ILang} from "~/types/lang.type";
 
 const router = useRouter()
-const route = useRoute();
-const activeLang = ref('en')
-const queryClient = useQueryClient()
+const activeLang = ref('ru')
 const formRef = ref<FormInstance>();
 const form = reactive<ISiteInfoDto>({
   title: {
@@ -131,8 +128,8 @@ const submit = () => {
 <template>
   <div class="flex flex-col max-w-[800px] mt-10 mx-auto w-full" v-loading="isLoading">
     <el-tabs v-model="activeLang" class="demo-tabs">
-      <el-tab-pane label="English" name="en"></el-tab-pane>
       <el-tab-pane label="Russian" name="ru"></el-tab-pane>
+      <el-tab-pane label="English" name="en"></el-tab-pane>
     </el-tabs>
     <el-form ref="formRef" :model="form" :rules="rules" label-position="top" class="w-full">
       <el-form-item label="Заголовок сайта" prop="title">

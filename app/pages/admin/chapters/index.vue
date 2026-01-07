@@ -52,9 +52,8 @@ const deleteChapterAction = (id: string) => {
     <div>
       <el-table :data="chaptersList" v-loading="isLoading">
         <el-table-column prop="number" label="Номер"/>
-        <el-table-column prop="title" label="Заголовок"/>
-        <el-table-column prop="text" label="Текст"/>
-        <el-table-column prop="description" label="Описание"/>
+        <el-table-column prop="title.ru" label="Заголовок"/>
+        <el-table-column prop="text.ru" label="Текст"/>
         <el-table-column prop="imagesCount" label="Изображения"/>
         <el-table-column width="100px" label="Действия">
           <template #default="scope">
