@@ -13,7 +13,8 @@ export default defineEventHandler(async () => {
                 text: 1,
                 imagesCount: { $size: "$images" },
                 createdAt: 1,
-                updatedAt: 1
+                updatedAt: 1,
+                viewCount: 1
             }
         }
     ])

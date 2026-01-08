@@ -2,23 +2,30 @@
 import VUpload from "~/components/chapters/VUpload.vue";
 import type {FormInstance} from "element-plus";
 import {getChapterById, getChapters, patchChapter, postChapter} from "~/services/chapter/chapter.service";
-import type {IChapterDto} from "~/services/chapter/chapter.dto";
+import type {IChapterDto, IChapterWithNextPrevDto} from "~/services/chapter/chapter.dto";
 import type {IBaseResponse} from "~/types/api.type";
 import {useRouter} from "#imports";
 import {Plus} from "@element-plus/icons-vue"
 import {useQueryClient} from "@tanstack/vue-query";
 import type {FormRules} from 'element-plus'
+import type {ILang} from "~/types/lang.type";
 
 const router = useRouter()
 const route = useRoute();
+const activeLang = ref('ru')
 const chapterId: string = route.params?.id as string
 const queryClient = useQueryClient()
 const formRef = ref<FormInstance>();
 const form = reactive<IChapterDto>({
-  title: "",
+  title: {
+    en: "",
+    ru: ""
+  },
   number: null,
-  text: "",
-  description: "",
+  text: {
+    en: "",
+    ru: ""
+  },
   images: []
 })
 
@@ -33,10 +40,10 @@ const rules: FormRules = {
 const {isLoading} = useQuery({
   queryKey: [`${getChapterById.name}_${chapterId}`],
   queryFn: () => getChapterById(chapterId),
-  select: (data: IBaseResponse<IChapterDto>) => {
+  select: (data: IBaseResponse<IChapterWithNextPrevDto>) => {
     Object.keys(form).forEach((item) => {
       const key = item as keyof IChapterDto
-      const value = data.data[key];
+      const value = data.data?.chapter[key];
       if (!['', undefined, null].includes(value as any)) {
         (form[key] as any) = value
       }
@@ -67,18 +74,19 @@ const submit = () => {
 
 <template>
   <div class="flex flex-col max-w-[500px] mt-10 mx-auto w-full" v-loading="isLoading">
+    <el-tabs v-model="activeLang" class="demo-tabs">
+      <el-tab-pane label="Russian" name="ru"></el-tab-pane>
+      <el-tab-pane label="English" name="en"></el-tab-pane>
+    </el-tabs>
     <el-form ref="formRef" :model="form" :rules="rules" label-position="top" class="w-full">
       <el-form-item label="Заголовок" prop="title">
-        <el-input v-model="form.title"/>
+        <el-input v-model="form.title[activeLang as ILang]"/>
       </el-form-item>
       <el-form-item label="Номер" prop="number">
         <el-input type="number" :min="0" v-model="form.number"/>
       </el-form-item>
-      <el-form-item label="Текст" prop="text">
-        <el-input v-model="form.text"/>
-      </el-form-item>
-      <el-form-item label="Описание" prop="description">
-        <el-input type="textarea" v-model="form.description"/>
+      <el-form-item label="Текст" prop="text" v-if="form.text?.ru !== undefined">
+        <el-input v-model="form.text[activeLang as ILang]"/>
       </el-form-item>
       <el-form-item label="Изображения" prop="images">
         <v-upload v-model="form.images"/>

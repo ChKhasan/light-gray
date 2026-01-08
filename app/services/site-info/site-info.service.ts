@@ -1,8 +1,8 @@
 import type {IBaseResponse} from "~/composable/useImageUpload";
-import axios from "axios";
+import axios, {type AxiosResponse} from "axios";
 import type {ISiteInfoDto} from "~/services/site-info/site-info.dto";
 
-const getSiteInfo = (): Promise<AxiosResponse<IBaseResponse<ISiteInfoDto>>> => {
+const getSiteInfo = (): Promise<IBaseResponse<ISiteInfoDto>> => {
     return axios.get('/api/site-info')
 }
 

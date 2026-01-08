@@ -2,12 +2,18 @@ import type {IUploadedImage} from "~/services/upload/upload.dto";
 
 export interface IChapterDto {
     _id?: string;
-    title: string;
+    title: {
+        en: string;
+        ru: string;
+    };
     number?: number | null;
-    description?: string;
-    text?: string;
+    text?: {
+        en: string;
+        ru: string;
+    };
     images: IUploadedImage[];
     imagesCount?: number;
+    viewCount?: number;
 }
 
 export interface IChapterWithNextPrevDto {

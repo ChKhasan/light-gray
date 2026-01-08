@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@peterbud/nuxt-query',
     'nuxt-aos',
     '@nuxtjs/i18n',
+    'dayjs-nuxt',
   ],
   i18n: i18nConfig,
   imports: {

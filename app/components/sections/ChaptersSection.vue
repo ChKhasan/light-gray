@@ -2,6 +2,7 @@
 import {ArrowRight} from "@element-plus/icons-vue";
 import {getChapters} from "~/services/chapter/chapter.service";
 
+const { locale } = useI18n()
 const {data: chapters, isLoading} = useQuery({
   queryKey: [getChapters.name],
   queryFn: getChapters,
@@ -29,7 +30,7 @@ const {data: chapters, isLoading} = useQuery({
                   <span class="text-2xl font-black text-red-600">
                     #{{ chapter.number }}
                   </span>
-                <h3 class="font-bold mt-2"> {{ chapter.title }} </h3>
+                <h3 class="font-bold mt-2"> {{ chapter.title[locale] }} </h3>
                 <p class="text-sm text-gray-500">
                   {{ chapter.imagesCount }} {{$t('pages')}}
                 </p>

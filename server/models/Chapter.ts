@@ -2,22 +2,35 @@ import mongoose from 'mongoose'
 
 const ChapterSchema = new mongoose.Schema({
     title: {
-        type: String,
-        required: true
+        ru: {
+            type: String,
+            default: '',
+            required: true
+        },
+        en: {
+            type: String,
+            default: '',
+            required: true
+        }
     },
     number: {
         type: Number,
         default: 1,
         required: true
     },
-    description: {
-        type: String,
-        default: ''
-    },
     text: {
-        type: String,
-        required: true
+        ru: {
+            type: String,
+            default: '',
+            required: true
+        },
+        en: {
+            type: String,
+            default: '',
+            required: true
+        }
     },
+    viewCount: { type: Number, default: 0 },
     images: {
         type: [
             {
