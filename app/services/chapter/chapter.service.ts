@@ -23,4 +23,8 @@ const patchChapter = async (id: string, body: IChapterDto): Promise<IBaseRespons
     return await api.put(`/api/chapter/${id}`,body)
 }
 
-export { getChapters, postChapter, deleteChapter, patchChapter, getChapterById }
+const postChapterViewCount = async (id: string) => {
+    return await api.post(`/api/chapter/${id}/view`)
+}
+
+export { getChapters, postChapter, deleteChapter, patchChapter, getChapterById, postChapterViewCount }

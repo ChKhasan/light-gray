@@ -4,7 +4,9 @@ import {Delete, Edit, Plus} from "@element-plus/icons-vue"
 import {useQueryClient} from "@tanstack/vue-query";
 import type {IBaseResponse} from "~/types/api.type";
 import type {IChapterDto} from "~/services/chapter/chapter.dto";
-
+definePageMeta({
+  layout: 'admin'
+})
 const queryClient = useQueryClient()
 const {data: chaptersList, isLoading} = useQuery({
   queryKey: [getChapters.name],
@@ -55,6 +57,7 @@ const deleteChapterAction = (id: string) => {
         <el-table-column prop="title.ru" label="Заголовок"/>
         <el-table-column prop="text.ru" label="Текст"/>
         <el-table-column prop="imagesCount" label="Изображения"/>
+        <el-table-column prop="viewCount" label="Просмотры"/>
         <el-table-column width="100px" label="Действия">
           <template #default="scope">
             <div>

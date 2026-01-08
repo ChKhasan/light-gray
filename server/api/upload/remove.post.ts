@@ -6,14 +6,15 @@ export default defineEventHandler(async (event) => {
     if (!filename) {
         throw createError({
             statusCode: 400,
-            message: 'filename required'
+            message: 'path required'
         })
     }
 
-    if (filename.includes('..') || filename.includes('/')) {
+    // 🔒 Path traversal himoyasi
+    if (filename.includes('..')) {
         throw createError({
             statusCode: 400,
-            message: 'Invalid filename'
+            message: 'Invalid path'
         })
     }
 

@@ -13,6 +13,7 @@ export interface IChapterDto {
     };
     images: IUploadedImage[];
     imagesCount?: number;
+    viewCount?: number;
 }
 
 export interface IChapterWithNextPrevDto {

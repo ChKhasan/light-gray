@@ -30,6 +30,7 @@ const ChapterSchema = new mongoose.Schema({
             required: true
         }
     },
+    viewCount: { type: Number, default: 0 },
     images: {
         type: [
             {

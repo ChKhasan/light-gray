@@ -21,21 +21,27 @@ const fileList = computed(() =>
       url: img.url
     }))
 )
+let uploadQueue = Promise.resolve()
+const handleUpload: UploadProps['httpRequest'] = (options) => {
+  uploadQueue = uploadQueue.then(async () => {
+    try {
+      const formData = new FormData()
+      formData.append('file', options.file)
 
-const handleUpload: UploadProps['httpRequest'] = async (options) => {
-  try {
-    const formData: FormData = new FormData()
-    formData.append('file', options.file)
-    const res = await uploadMutation.mutateAsync(formData);
-    const data = res.data
-    emit('update:modelValue', [
-      ...props.modelValue,
-      data
-    ])
-  } catch (e) {
-    console.log("e",e)
-    ElMessage.error('Upload xatolik')
-  }
+      const res = await uploadMutation.mutateAsync(formData)
+      const data = res.data
+
+      emit('update:modelValue', [
+        ...props.modelValue,
+        data
+      ])
+    } catch (e) {
+      console.error(e)
+      ElMessage.error('Upload xatolik')
+    }
+  })
+
+  return uploadQueue
 }
 
 const handleRemove = async (file: UploadFile) => {

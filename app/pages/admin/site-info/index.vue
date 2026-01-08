@@ -7,7 +7,9 @@ import type {FormRules} from 'element-plus'
 import type {ISiteInfoDto} from "~/services/site-info/site-info.dto";
 import {getSiteInfo, postSiteInfo} from "~/services/site-info/site-info.service";
 import type {ILang} from "~/types/lang.type";
-
+definePageMeta({
+  layout: 'admin'
+})
 const router = useRouter()
 const activeLang = ref('ru')
 const formRef = ref<FormInstance>();

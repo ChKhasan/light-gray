@@ -26,14 +26,15 @@
             :key="index"
             class="relative group"
         >
-          <div class="absolute top-4 left-4 bg-black/80 text-white px-3 py-1 rounded text-sm font-bold z-10">
+          <div
+              class="absolute top-2 left-2 sm:top-3 sm:left-3 bg-black/60 text-white px-3 py-1 rounded text-sm font-bold z-10">
             {{ index + 1 }} / {{ totalPages }}
           </div>
 
           <img
               :src="page.url"
               :alt="`Page ${index + 1}`"
-              class="w-full h-auto shadow-2xl"
+              class="w-full h-auto shadow-2xl min-h-[50vh]"
               loading="lazy"
           />
         </div>
@@ -94,11 +95,11 @@
 import {ref, computed, onMounted, onUnmounted} from 'vue'
 import {useRoute} from '#imports'
 import {House, ArrowUp} from '@element-plus/icons-vue'
-import {getChapterById} from "~/services/chapter/chapter.service";
+import {getChapterById, postChapterViewCount} from "~/services/chapter/chapter.service";
 
-const { locale } = useI18n()
+const {locale} = useI18n()
 const route = useRoute()
-const id: string | undefined | string[] = route.params.id
+const id: string = route.params.id as string
 const nextId = ref<string | null | undefined>(null);
 const prevId = ref<string | null | undefined>(null);
 const showScrollTop = ref(false)
@@ -114,18 +115,15 @@ const scrollToTop = () => {
 }
 
 const progress = computed(() => {
-  const height =
-      document.documentElement.scrollHeight - window.innerHeight
-  return height > 0 ? (scrollY.value / height) * 100 : 0
+  if(!!window && scrollY.value) {
+    const height =
+        document.documentElement.scrollHeight - window.innerHeight
+    return height > 0 ? (scrollY.value / height) * 100 : 0
+  }
+  return 0
 })
 
-onMounted(() => {
-  window.addEventListener('scroll', onScroll)
-})
 
-onUnmounted(() => {
-  window.removeEventListener('scroll', onScroll)
-})
 
 const {data: chapter, isLoading} = useQuery({
   queryKey: [`${getChapterById.name}_${id}`],
@@ -137,5 +135,19 @@ const {data: chapter, isLoading} = useQuery({
   }
 })
 const totalPages = computed(() => chapter.value?.images?.length)
+const countUp = async () => {
+  try {
+    await postChapterViewCount(id)
+  } catch (e) {
+    console.log(e)
+  }
+}
+onMounted(() => {
+  countUp()
+  window.addEventListener('scroll', onScroll)
+})
 
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+})
 </script>

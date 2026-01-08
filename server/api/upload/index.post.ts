@@ -1,17 +1,18 @@
 import sharp from 'sharp'
 import { supabase } from '../../utils/supabase'
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 
-function slugifyFilename(name: string) {
-    return name
+function slugify(str: string) {
+    return str
         .toLowerCase()
-        .replace(/\.[^/.]+$/, '')
-        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/[^a-z0-9-_]+/g, '-')
         .replace(/(^-|-$)/g, '')
 }
+
 export default defineEventHandler(async (event) => {
     const formData = await readMultipartFormData(event)
     const file = formData?.find(f => f.name === 'file')
+
     if (!file) {
         throw createError({ statusCode: 400, message: 'File topilmadi' })
     }
@@ -26,13 +27,24 @@ export default defineEventHandler(async (event) => {
         .toBuffer()
 
     const originalName = file.filename || 'image'
-    const safeName = slugifyFilename(originalName)
+    const nameWithoutExt = originalName.replace(/\.[^/.]+$/, '')
+
+    // 🔹 faqat birinchi "-" gacha papka
+    const dashIndex = nameWithoutExt.indexOf('-')
+    const folderRaw = dashIndex !== -1
+        ? nameWithoutExt.slice(0, dashIndex)
+        : nameWithoutExt
+
+    const folderName = slugify(folderRaw)
+    const fileBaseName = slugify(nameWithoutExt)
+
     const timestamp = dayjs().format('DD-MM-YYYY_HH-mm-ss')
-    const filename = `${safeName}-${timestamp}.webp`
+
+    const filePath = `${folderName}/${fileBaseName}-${timestamp}.webp`
 
     const { error } = await supabase.storage
         .from('uploads')
-        .upload(filename, optimizedBuffer, {
+        .upload(filePath, optimizedBuffer, {
             contentType: 'image/webp',
             upsert: false
         })
@@ -43,10 +55,10 @@ export default defineEventHandler(async (event) => {
 
     const { data } = supabase.storage
         .from('uploads')
-        .getPublicUrl(filename)
+        .getPublicUrl(filePath)
 
     return {
         url: data.publicUrl,
-        filename
+        filename: filePath
     }
 })
