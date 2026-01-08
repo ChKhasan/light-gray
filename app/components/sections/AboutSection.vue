@@ -28,7 +28,7 @@ const mangaData = computed(() => (
         >
           <div class="relative aspect-[3/4] bg-gray-200">
             <img
-                src="@/assets/cover/Banner_0.png"
+                src="@/assets/cover/Banner_0_0.png"
                 :alt="mangaData.title"
                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 border-2"
             />
