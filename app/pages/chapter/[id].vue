@@ -101,17 +101,6 @@ import {getChapterById, postChapterViewCount} from "~/services/chapter/chapter.s
 
 const {locale} = useI18n()
 const route = useRoute()
-useSeoMeta({
-  title: `Chapter ${route.params.slug}`,
-  description:
-      'Read the next chapter of Light Gray webcomic. Action, drama, fantasy and unforgettable characters.',
-  ogTitle: `Light Gray – Chapter ${route.params.slug}`,
-  ogDescription:
-      'Dive deeper into the Light Gray universe. New chapter available now.',
-  ogImage: 'https://www.light-gray.art/og-cover.jpg',
-  ogUrl: `https://www.light-gray.art/chapters/${route.params.slug}`,
-  twitterCard: 'summary_large_image'
-})
 const id: string = route.params.id as string
 const nextId = ref<string | null | undefined>(null);
 const prevId = ref<string | null | undefined>(null);
@@ -162,5 +151,20 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
+})
+watch(chapter, (newChapter) => {
+  if (newChapter) {
+    useSeoMeta({
+      title: `Chapter ${newChapter.number}`,
+      description:
+          'Read the next chapter of Light Gray webcomic. Action, drama, fantasy and unforgettable characters.',
+      ogTitle: `Light Gray – Chapter ${newChapter.number}`,
+      ogDescription:
+          'Dive deeper into the Light Gray universe. New chapter available now.',
+      ogImage: 'https://www.light-gray.art/_nuxt/Banner_0_0.xcPjMqD_.png',
+      ogUrl: `https://www.light-gray.art/chapters/${newChapter.number}`,
+      twitterCard: 'summary_large_image'
+    })
+  }
 })
 </script>
