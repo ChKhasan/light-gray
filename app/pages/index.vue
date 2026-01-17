@@ -19,4 +19,20 @@ import ChaptersSection from "~/components/sections/ChaptersSection.vue";
 import AboutSection from "~/components/sections/AboutSection.vue";
 import Footer from "~/components/Footer.vue";
 import Header from "~/components/Header.vue";
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "CreativeWorkSeries",
+        "name": "Light Gray",
+        "genre": ["Action", "Fantasy", "Drama"],
+        "url": "https://www.light-gray.art"
+      })
+    }
+  ]
+})
+
 </script>

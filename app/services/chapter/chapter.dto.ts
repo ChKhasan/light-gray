@@ -14,6 +14,8 @@ export interface IChapterDto {
     images: IUploadedImage[];
     imagesCount?: number;
     viewCount?: number;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface IChapterWithNextPrevDto {

@@ -36,6 +36,8 @@
               :alt="`Page ${index + 1}`"
               class="w-full h-auto shadow-2xl min-h-[50vh]"
               loading="lazy"
+              decoding="async"
+              alt="Light Gray comic scene"
           />
         </div>
       </div>
@@ -99,6 +101,17 @@ import {getChapterById, postChapterViewCount} from "~/services/chapter/chapter.s
 
 const {locale} = useI18n()
 const route = useRoute()
+useSeoMeta({
+  title: `Chapter ${route.params.slug}`,
+  description:
+      'Read the next chapter of Light Gray webcomic. Action, drama, fantasy and unforgettable characters.',
+  ogTitle: `Light Gray – Chapter ${route.params.slug}`,
+  ogDescription:
+      'Dive deeper into the Light Gray universe. New chapter available now.',
+  ogImage: 'https://www.light-gray.art/og-cover.jpg',
+  ogUrl: `https://www.light-gray.art/chapters/${route.params.slug}`,
+  twitterCard: 'summary_large_image'
+})
 const id: string = route.params.id as string
 const nextId = ref<string | null | undefined>(null);
 const prevId = ref<string | null | undefined>(null);
