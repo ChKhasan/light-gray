@@ -40,7 +40,7 @@ export default defineNuxtConfig({
   ],
   sitemap: {
     urls: async () => {
-      const chapters = await axios.get('/api/chapter');
+      const chapters = await axios.get('https://www.light-gray.art/api/chapter');
       return chapters.data.map((c: IChapterDto) => ({
         loc: `/chapters/${c._id}`,
         lastmod: c.updatedAt
