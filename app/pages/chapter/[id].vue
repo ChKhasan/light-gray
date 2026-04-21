@@ -37,7 +37,6 @@
               class="w-full h-auto shadow-2xl min-h-[50vh]"
               loading="lazy"
               decoding="async"
-              alt="Light Gray comic scene"
           />
         </div>
       </div>
