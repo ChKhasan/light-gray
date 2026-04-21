@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import {MONGO_URI} from "~/constants/api";
+import { getRequiredEnv } from './env'
 
 interface MongooseGlobal {
     conn: typeof mongoose | null
@@ -16,7 +16,7 @@ export const connectDB = async () => {
     if (cached.conn) return cached.conn
 
     if (!cached.promise) {
-        cached.promise = mongoose.connect(MONGO_URI!, {
+        cached.promise = mongoose.connect(getRequiredEnv('MONGO_URI'), {
             bufferCommands: false
         }).then((mongoose) => {
             console.log('✅ MongoDB connected')
