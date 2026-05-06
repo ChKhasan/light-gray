@@ -67,7 +67,7 @@ const handleRemove = async (file: UploadFile) => {
       :http-request="handleUpload"
       :file-list="fileList"
       list-type="picture-card"
-      :limit="30"
+      :limit="40"
       multiple
       accept="image/*"
       :on-remove="handleRemove"
