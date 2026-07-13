@@ -6,11 +6,12 @@ export default defineEventHandler(async (event) => {
     await connectDB()
     const id = event.context.params!.id
 
-    const chapter = await Chapter.findById(id)
+    const chapter = await Chapter.findByIdAndUpdate(
+        id,
+        { $inc: { viewCount: 1 } },
+        { new: true, projection: { viewCount: 1 } }
+    )
     if (!chapter) throw createError({ statusCode: 404, message: 'Chapter not found' })
-
-    chapter.viewCount = (chapter.viewCount || 0) + 1
-    await chapter.save()
 
     return { ok: true, viewCount: chapter.viewCount }
 })

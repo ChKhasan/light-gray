@@ -45,8 +45,8 @@ const ChapterSchema = new mongoose.Schema({
             }
         ],
         validate: {
-            validator: (arr: any[]) => arr.length <= 30,
-            message: 'Max 30 ta rasm'
+            validator: (arr: any[]) => arr.length <= 40,
+            message: 'Max 40 ta rasm'
         }
     }
 }, {timestamps: true})

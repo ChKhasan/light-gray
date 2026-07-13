@@ -11,7 +11,7 @@ export default defineEventHandler({
         return await Chapter.findByIdAndUpdate(
             event.context.params!.id,
             body,
-            { new: true }
+            { new: true, runValidators: true }
         )
     }
 })
